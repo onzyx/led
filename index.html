@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kontrol Lampu LED</title>
+</head>
+<body>
+    <h1>Kontrol Lampu LED</h1>
+    <button onclick="turnOn()">Nyalakan</button>
+    <button onclick="turnOff()">Matikan</button>
+
+    <script>
+        function turnOn() {
+            sendCommand('1'); // Kirim perintah ke Arduino untuk menyalakan LED
+        }
+
+        function turnOff() {
+            sendCommand('0'); // Kirim perintah ke Arduino untuk mematikan LED
+        }
+
+        function sendCommand(command) {
+            fetch('https://kqing.vercel.app/', { // Ubah URL sesuai dengan server Anda
+                method: 'POST',
+                body: JSON.stringify({ command }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Gagal mengirim perintah.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Respon dari server:', data);
+            })
+            .catch(error => {
+                console.error('Terjadi kesalahan:', error);
+            });
+        }
+    </script>
+</body>
+</html>
