@@ -1,5 +1,13 @@
 {
+  "version": 2,
   "builds": [
     { "src": "server.js", "use": "@now/node-server" }
-  ]
+  ],
+  "routes": [
+    { "src": "/control", "dest": "server.js" },
+    { "src": "/(.*)", "dest": "public/$1" }
+  ],
+  "env": {
+    "PORT": 3000
+  }
 }
