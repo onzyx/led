@@ -9,5 +9,31 @@
   ],
   "env": {
     "PORT": 3000
-  }
+  },
+  "cleanUrls": true, // Aktifkan atau nonaktifkan penghapusan ekstensi .html
+  "public": true, // Definisikan direktori publik Anda
+  "headers": [ // Konfigurasi header HTTP
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600" // Contoh pengaturan cache
+        }
+      ]
+    }
+  ],
+  "rewrites": [ // Konfigurasi aturan rewrite URL
+    {
+      "source": "/api/(.*)",
+      "destination": "/server.js" // Contoh aturan rewrite untuk endpoint API
+    }
+  ],
+  "redirects": [ // Konfigurasi aturan redirect
+    {
+      "source": "/old-page",
+      "destination": "/new-page",
+      "statusCode": 301 // Redirect permanen
+    }
+  ]
 }
